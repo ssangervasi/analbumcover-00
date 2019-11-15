@@ -1,3 +1,9 @@
 import 'dictionary-en-us'
 
-console.log('dank')
+const l = console.log;
+const dank = () => l('dank');
+
+export {
+  l,
+  dank
+}
