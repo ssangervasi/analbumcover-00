@@ -1,37 +1,39 @@
 {
-  "name": "analbumcover",
-  "version": "0.0.1",
-  "description": "Telefactor: analbumcover - Reference implementation",
-  "main": "dist/main.js",
-  "bin": {
-    "analbumcover": "dist/cli.js"
-  },
-  "scripts": {
-    "build": "rimraf dist && tsc",
-    "watch": "tsc-watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ssangervasi/telefactor_analbumcover_00.git"
-  },
-  "author": "Sebastian Sangervasi",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ssangervasi/telefactor_analbumcover_00/issues"
-  },
-  "homepage": "https://github.com/ssangervasi/telefactor_analbumcover_00#readme",
-  "dependencies": {
-    "@types/node": "^12.7.4",
-    "dictionary-en-us": "^2.1.1"
-  },
-  "devDependencies": {
-    "ts-loader": "^6.0.4",
-    "typescript": "^3.6.2",
-    "rimraf": "^2.7.1",
-    "ts-node": "8.1.0",
-    "tsc-watch": "2.2.1",
-    "tsconfig-paths": "3.8.0",
-    "tslint": "5.16.0"
-  }
+	"name": "analbumcover",
+	"version": "0.0.1",
+	"description": "Telefactor: analbumcover - Reference implementation",
+	"main": "dist/main.js",
+	"bin": {
+		"analbumcover": "dist/cli.js"
+	},
+	"scripts": {
+		"build": "rimraf dist && tsc",
+		"watch": "tsc-watch",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"shell": "ts-node",
+		"test-install": "npm run build && npm unlink && npm link && analbumcover"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/ssangervasi/telefactor_analbumcover_00.git"
+	},
+	"author": "Sebastian Sangervasi",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/ssangervasi/telefactor_analbumcover_00/issues"
+	},
+	"homepage": "https://github.com/ssangervasi/telefactor_analbumcover_00#readme",
+	"dependencies": {
+		"@types/node": "^12.7.4",
+		"dictionary-en-us": "^2.1.1"
+	},
+	"devDependencies": {
+		"ts-loader": "^6.0.4",
+		"typescript": "^3.6.2",
+		"rimraf": "^2.7.1",
+		"ts-node": "8.1.0",
+		"tsc-watch": "2.2.1",
+		"tsconfig-paths": "3.8.0",
+		"tslint": "5.16.0"
+	}
 }
