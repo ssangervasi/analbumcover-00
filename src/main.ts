@@ -1,18 +1,15 @@
-import * as dict from 'dictionary-en-us';
+import { initNSpell } from './enspell';
 
-import other from './more/other';
-
-const l = console.log;
-const dank = () => l('dank');
-const demo = () => l(`
-	dict
-	${dict}
-	other
-	${other}
-`);
+const l = console.log
+// const isCorrect = (word: string) => enspell.correct(word)
+const demo = () => {
+	initNSpell().then(() => {
+		l(`
+			wat
+		`)
+	})
+}
 
 export {
-	l,
-	dank,
 	demo
 }

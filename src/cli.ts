@@ -1,15 +1,22 @@
 #!/usr/bin/env node
-import * as commander from 'commander';
 
-import { l, demo } from './main';
+new Promise(resolve => {
+  console.log('Gonna do it!')
+  setTimeout(resolve, 20_000)
+})
+.then(() => { console.log('We did it!') })
 
-const program = new commander.Command();
+// import * as commander from 'commander';
 
-program
-	.arguments('[things...]')
-	.action((things: Array<String>) => {
-		l('things', JSON.stringify(things))
-	})
-program.parse(process.argv);
+// import { l, demo } from './main';
 
-demo()
+// const program = new commander.Command();
+
+// program
+// 	.arguments('[things...]')
+// 	.action((things: Array<String>) => {
+// 		l('things', JSON.stringify(things))
+// 	})
+// program.parse(process.argv);
+
+// demo()
