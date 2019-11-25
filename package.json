@@ -13,6 +13,7 @@
 		"shell": "ts-node",
 		"test-install": "npm run build && npm unlink && npm link && analbumcover",
 		"analbumcover": "node ./dist/cli.js",
+		"cli": "ts-node ./src/cli.ts",
 		"ndb": "ndb ./dist/cli.js"
 	},
 	"repository": {
