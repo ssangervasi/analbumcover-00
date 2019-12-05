@@ -1,7 +1,7 @@
 
 const other = 'OTHER!'
-export { other };
+export { other }
 
-const obj = { other };
-export default obj;
+const obj = { other }
+export default obj
 

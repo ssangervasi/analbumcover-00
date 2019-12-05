@@ -1,4 +1,4 @@
-import { initNSpell } from './enspell';
+import { initNSpell } from './enspell'
 
 const l = console.log
 // const isCorrect = (word: string) => enspell.correct(word)
@@ -12,5 +12,5 @@ const demo = () => {
 
 export {
 	demo,
-  l
+	l
 }
