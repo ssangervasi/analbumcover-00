@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
 
-import { l, demo } from './main'
+import { l } from './main'
 
 const main = () => {
 	const program = new Command()

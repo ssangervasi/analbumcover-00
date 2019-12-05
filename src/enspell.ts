@@ -17,7 +17,7 @@ const initDict = async () => {
 			})
 	)
 	// The dict is memoized, but eslint doesn't recognize the check at the top of this fn.
-	/* eslint-disable require-atomic-updates */
+	/* eslint-disable-next-line require-atomic-updates */
 	dict = res.dic
 	return dict
 }
