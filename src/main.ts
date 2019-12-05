@@ -1,6 +1,6 @@
 import { initNSpell } from './enspell'
 
-const l = (...args) => {console.log(...args)}
+const l = console.log
 // const isCorrect = (word: string) => enspell.correct(word)
 const demo = () => {
 	initNSpell().then(() => {
