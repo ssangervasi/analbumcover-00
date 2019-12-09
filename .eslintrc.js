@@ -32,11 +32,18 @@ module.exports = {
 		],
 		'quotes': [
 			'error',
-			'single'
+			'single',
+			{ 'avoidEscape': true }
 		],
 		'semi': [
 			'error',
 			'never'
+		],
+		'no-unused-vars': [
+			'error',
+			// Ignore vars starting with init cap to avoid false positive
+			// on imported types and interfaces.
+			{ 'varsIgnorePattern': '^[A-Z]' }
 		]
 	}
 }

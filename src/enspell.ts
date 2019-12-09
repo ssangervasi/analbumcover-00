@@ -1,28 +1,44 @@
-import { enUS } from 'dictionary-en-us'
-import { nspell } from 'nspell'
+// This module exports a function.
+import loadEnUS from 'dictionary-en-us'
+import { Nodehun } from 'nodehun'
 
+// The documents and speller are memoized, but eslint doesn't recognize the null checks.
+/* eslint-disable require-atomic-updates */
 
-const initNSpell = async () => {
-	return nspell
+let nodehun: Nodehun | null = null
+const initNodehun = async (): Promise<Nodehun> => {
+	if (nodehun) { return nodehun }
+
+	let documents = await initDocuments()
+	if (!documents) { throw new Error("Can't create Nodehun due to missing dictionary documents.") }
+
+	nodehun = new Nodehun(documents.aff, documents.dic)
+	return nodehun
 }
 
-let dict = null
-const initDict = async () => {
-	if (dict) { return dict }
+interface DictionaryDocuments {
+	dic: Buffer;
+	aff: Buffer;
+}
+let documents: DictionaryDocuments | null = null
+const initDocuments = async (): Promise<DictionaryDocuments> => {
+	if (documents) { return documents }
+
 	let res: any = await new Promise(
-		resolve => enUS(
-			(err, result) => {
-				console.log(result)
-				resolve(result)
-			})
+		(resolve, reject) => loadEnUS(
+			(err: string, result: DictionaryDocuments) => {
+				if (err) { return reject(err) }
+				return resolve(result)
+			}
+		)
 	)
-	// The dict is memoized, but eslint doesn't recognize the check at the top of this fn.
-	/* eslint-disable-next-line require-atomic-updates */
-	dict = res.dic
-	return dict
+	documents = res
+	if (!documents) { throw new Error('Failed to load DictionaryDocument') }
+	return documents
 }
 
 export {
-	initNSpell,
-	initDict
+	initNodehun,
+	initDocuments,
+	Nodehun
 }
