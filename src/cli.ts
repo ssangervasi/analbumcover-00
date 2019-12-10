@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { Command } from 'commander'
-import { initNodehun } from './enspell'
+import { initNodehun, NodehunSpelling } from './spelling'
 
 import {
 	rephrase
@@ -16,8 +16,9 @@ const main = () => {
 }
 
 const analbumcoverAction = async (phrase: string): Promise<string> => {
-	let nodehun = await initNodehun()
-	return rephrase(phrase, nodehun)
+	const nodehun = await initNodehun()
+	const spelling = new NodehunSpelling(nodehun)
+	return rephrase(phrase, spelling)
 }
 
 main()

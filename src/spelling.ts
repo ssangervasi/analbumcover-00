@@ -1,6 +1,18 @@
-// This module exports a function.
+// This module exports a single function.
 import loadEnUS from 'dictionary-en-us'
 import { Nodehun } from 'nodehun'
+
+interface Spelling {
+	isCorrect: (word: string) => boolean
+}
+
+class NodehunSpelling implements Spelling {
+	constructor(private nodehun: Nodehun) {}
+	
+	isCorrect(word: string): boolean {
+		return this.nodehun.spellSync(word)
+	}
+}
 
 // The documents and speller are memoized, but eslint doesn't recognize the null checks.
 /* eslint-disable require-atomic-updates */
@@ -40,5 +52,7 @@ const initDocuments = async (): Promise<DictionaryDocuments> => {
 export {
 	initNodehun,
 	initDocuments,
-	Nodehun
+	Nodehun,
+	Spelling,
+	NodehunSpelling
 }

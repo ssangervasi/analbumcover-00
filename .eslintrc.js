@@ -41,9 +41,13 @@ module.exports = {
 		],
 		'no-unused-vars': [
 			'error',
-			// Ignore vars starting with init cap to avoid false positive
-			// on imported types and interfaces.
-			{ 'varsIgnorePattern': '^[A-Z]' }
+			// False positive cases:
+			{
+				// Ignore vars starting with init cap to ignore imported types and interfaces.
+				'varsIgnorePattern': '^[A-Z]',
+				// Ignore function args to ignore constructor parameter properties.
+				'args': 'none'
+			}
 		]
 	}
 }

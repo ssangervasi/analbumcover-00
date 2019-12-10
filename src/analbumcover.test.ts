@@ -9,7 +9,7 @@ test('l', () => {
 describe('check', () => {
 	let dictWords = 'an album cover'.split(' ')
 	let nodehun = {
-		spellSync: (word: string): boolean => dictWords.includes(word)
+		isCorrect: (word: string): boolean => dictWords.includes(word)
 	}
 
 	test('an album cover', () => {
@@ -28,7 +28,7 @@ describe('rephrase', () => {
 	test('an album cover', () => {
 		let dictWords = 'anal bum cover an album cover'.split(' ')
 		let nodehun = {
-			spellSync: (word: string): boolean => dictWords.includes(word)
+			isCorrect: (word: string): boolean => dictWords.includes(word)
 		}
 		expect(rephrase('an album cover', nodehun))
 			.toEqual('anal bum cover')
