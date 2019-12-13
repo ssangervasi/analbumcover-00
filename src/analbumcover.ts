@@ -1,5 +1,10 @@
 import { Spelling } from './spelling'
 
+interface Rephrasing {
+	unusedChars: string[]
+	usedWords: string[]
+}
+
 const rephrase = (
 	phrase: string,
 	spelling: Spelling,
@@ -14,8 +19,8 @@ const rephrase = (
 			if (finalPhrase != phrase) { return finalPhrase }
 		}
 
-		unusedChars.forEach((_, i) => {
-			const nextWord = unusedChars.slice(0, i + 1).join('')
+		eachSlice(unusedChars, (nextSlice, charsRemaining) => {
+			const nextWord = nextSlice.join('')
 
 			const isTooShort = nextWord.length < minWordLength
 			if (isTooShort) { return }
@@ -25,16 +30,11 @@ const rephrase = (
 
 			queue.push({
 				usedWords: [...usedWords, nextWord],
-				unusedChars: unusedChars.slice(i + 1)
+				unusedChars: charsRemaining
 			})
 		})
 	}
 	return null
-}
-
-interface Rephrasing {
-	unusedChars: string[]
-	usedWords: string[]
 }
 
 const initialRephrasing = (phrase: string): Rephrasing => {
@@ -45,6 +45,17 @@ const initialRephrasing = (phrase: string): Rephrasing => {
 	}
 }
 
+type SliceCallback<T> = (slice: Array<T>, remaining: Array<T>) => void
+const eachSlice = <T>(items: Array<T>, callback: SliceCallback<T>): void => {
+	items.forEach((_, i) => {
+		const nextSlice = items.slice(0, i + 1)
+		const itemsRemaining = items.slice(i + 1)
+		callback(nextSlice, itemsRemaining)
+	})
+}
+
 export {
-	rephrase
+	Rephrasing,
+	rephrase,
+	initialRephrasing
 }
