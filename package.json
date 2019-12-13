@@ -13,7 +13,7 @@
 		"shell": "ts-node",
 		"test-install": "npm run build && npm unlink && npm link && analbumcover",
 		"analbumcover": "node ./dist/cli.js",
-		"cli": "ts-node ./src/cli.ts",
+		"cli": "ts-node --files ./src/cli.ts",
 		"ndb": "ndb ./dist/cli.js",
 		"eslint": "eslint",
 		"lint": "eslint --fix --cache './src/**'"
@@ -29,11 +29,12 @@
 	},
 	"homepage": "https://github.com/ssangervasi/telefactor_analbumcover_00#readme",
 	"dependencies": {
-		"@types/node": "^12.7.4",
+		"acorn": "^7.1.0",
 		"dictionary-en-us": "^2.1.1",
 		"nodehun": "^3.0.1"
 	},
 	"devDependencies": {
+		"@types/node": "^12.7.4",
 		"@types/jest": "^24.0.23",
 		"@typescript-eslint/eslint-plugin": "^2.10.0",
 		"@typescript-eslint/parser": "^2.10.0",

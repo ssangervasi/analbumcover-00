@@ -1,36 +1,30 @@
 // import { mocked } from 'ts-jest/utils'
 
-import { l, rephrase, check } from './analbumcover'
+import { rephrase } from './analbumcover'
 
-test('l', () => {
-	expect(l).toBe(console.log)
-})
+describe('rephrase', () => {
+	let dictWords: string[]
+	beforeEach(() => { dictWords = [] })
 
-describe('check', () => {
-	let dictWords = 'an album cover'.split(' ')
 	let nodehun = {
 		isCorrect: (word: string): boolean => dictWords.includes(word)
 	}
 
-	test('an album cover', () => {
-		expect(check('an album cover', nodehun))
-			.toEqual([true, true, true])
-	})
-
-	test('xorx borx', () => {
-		expect(check('xorx borx', nodehun))
-			.toEqual([false, false])
-	})
-})
-
-describe('rephrase', () => {
-
-	test('an album cover', () => {
-		let dictWords = 'anal bum cover an album cover'.split(' ')
-		let nodehun = {
-			isCorrect: (word: string): boolean => dictWords.includes(word)
-		}
+	test('an album cover => anal bum cover', () => {
+		dictWords = 'anal bum cover an album cover'.split(' ')
 		expect(rephrase('an album cover', nodehun))
 			.toEqual('anal bum cover')
+	})
+
+	test('horsehorsehorse => horse horse horse', () => {
+		dictWords = 'horse cow'.split(' ')
+		expect(rephrase('horsehorsehorse', nodehun))
+			.toEqual('horse horse horse')
+	})
+
+	test('when no rephrasing is valid it return null', () => {
+		dictWords = 'horse cow'.split(' ')
+		expect(rephrase('an album cover', nodehun))
+			.toEqual(null)
 	})
 })

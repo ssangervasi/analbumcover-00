@@ -1,1 +1,1 @@
-declare module 'dictionary-en-us';
+declare module 'dictionary-en-us'

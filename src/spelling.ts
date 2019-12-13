@@ -8,7 +8,7 @@ interface Spelling {
 
 class NodehunSpelling implements Spelling {
 	constructor(private nodehun: Nodehun) {}
-	
+
 	isCorrect(word: string): boolean {
 		return this.nodehun.spellSync(word)
 	}
@@ -29,8 +29,8 @@ const initNodehun = async (): Promise<Nodehun> => {
 }
 
 interface DictionaryDocuments {
-	dic: Buffer;
-	aff: Buffer;
+	dic: Buffer
+	aff: Buffer
 }
 let documents: DictionaryDocuments | null = null
 const initDocuments = async (): Promise<DictionaryDocuments> => {
