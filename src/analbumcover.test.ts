@@ -22,9 +22,24 @@ describe('rephrase', () => {
 			.toEqual('horse horse horse')
 	})
 
-	test('when no rephrasing is valid it return null', () => {
+
+	test('when no rephrasing is valid it returns null', () => {
 		dictWords = 'horse cow'.split(' ')
 		expect(rephrase('an album cover', nodehun))
-			.toEqual(null)
+			.toBeNull()
+	})
+
+	describe('abc', () => {
+		beforeEach(() => { dictWords = 'a b c'.split('') })
+
+		test('with a minimum word length of 1', () => {
+			expect(rephrase('abc', nodehun, 1))
+				.toEqual('a b c')
+		})
+
+		test('with a minimum word length of 2', () => {
+			expect(rephrase('abc', nodehun, 2))
+				.toBeNull()
+		})
 	})
 })
