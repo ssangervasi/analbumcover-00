@@ -3,43 +3,55 @@
 import { rephrase } from './analbumcover'
 
 describe('rephrase', () => {
-	let dictWords: string[]
-	beforeEach(() => { dictWords = [] })
+	let dictWords: string
 
 	let nodehun = {
-		isCorrect: (word: string): boolean => dictWords.includes(word)
+		isCorrect: (word: string): boolean => dictWords.split(' ').includes(word)
 	}
 
-	test('an album cover => anal bum cover', () => {
-		dictWords = 'anal bum cover an album cover'.split(' ')
-		expect(rephrase('an album cover', nodehun))
-			.toEqual('anal bum cover')
+	describe('the classic', () => {
+		beforeAll(() => { dictWords = 'anal bum cover an album cover' })
+
+		test('an album cover => anal bum cover', () => {
+			expect(rephrase('an album cover', nodehun))
+				.toEqual('anal bum cover')
+		})
 	})
 
-	test('horsehorsehorse => horse horse horse', () => {
-		dictWords = 'horse cow'.split(' ')
-		expect(rephrase('horsehorsehorse', nodehun))
-			.toEqual('horse horse horse')
+	describe('horses and cows', () => {
+		beforeAll(() => { dictWords = 'horse cow' })
+
+		test('horsehorsehorse => horse horse horse', () => {
+			expect(rephrase('horsehorsehorse', nodehun))
+				.toEqual('horse horse horse')
+		})
+
+		test('when no rephrasing is valid it returns null', () => {
+			expect(rephrase('mouse cheese', nodehun))
+				.toBeNull()
+		})
 	})
 
+	describe('with a minimum word length', () => {
+		beforeAll(() => { dictWords = 'a b c' })
 
-	test('when no rephrasing is valid it returns null', () => {
-		dictWords = 'horse cow'.split(' ')
-		expect(rephrase('an album cover', nodehun))
-			.toBeNull()
-	})
-
-	describe('abc', () => {
-		beforeEach(() => { dictWords = 'a b c'.split('') })
-
-		test('with a minimum word length of 1', () => {
+		test('of 1', () => {
 			expect(rephrase('abc', nodehun, 1))
 				.toEqual('a b c')
 		})
 
-		test('with a minimum word length of 2', () => {
+		test('of 2', () => {
 			expect(rephrase('abc', nodehun, 2))
 				.toBeNull()
+		})
+	})
+
+	describe('with capital letters and symbols', () => {
+		beforeAll(() => { dictWords = 'poor attack poo rat tack' })
+
+		test('lowercases and removes symbols', () => {
+			expect(rephrase('Poor attack!', nodehun))
+				.toEqual('poo rat tack')
 		})
 	})
 })

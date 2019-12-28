@@ -10,13 +10,17 @@ const rephrase = (
 	spelling: Spelling,
 	minWordLength: number = 1
 ): string | null => {
-	const queue: Rephrasing[] = [initialRephrasing(phrase)]
+	const phraseCleaned = clean(phrase)
+	const queue: Rephrasing[] = [
+		initialRephrasing(phraseCleaned)
+	]
+
 	while (queue.length > 0) {
 		let { usedWords, unusedChars } = (queue.shift() as Rephrasing)
 
 		if (unusedChars.length == 0) {
 			let finalPhrase = usedWords.join(' ')
-			if (finalPhrase != phrase) { return finalPhrase }
+			if (finalPhrase != phraseCleaned) { return finalPhrase }
 		}
 
 		eachSlice(unusedChars, (nextSlice, charsRemaining) => {
@@ -34,7 +38,21 @@ const rephrase = (
 			})
 		})
 	}
+
 	return null
+}
+
+const clean = (phrase: string): string => {
+	return phrase
+		.split(' ')
+		.map(word => {
+			return word
+				.split('')
+				.map(c => c.toLowerCase())
+				.filter(c => /[a-zA-Z]/.test(c))
+				.join('')
+		})
+		.join(' ')
 }
 
 const initialRephrasing = (phrase: string): Rephrasing => {
@@ -57,5 +75,8 @@ const eachSlice = <T>(items: Array<T>, callback: SliceCallback<T>): void => {
 export {
 	Rephrasing,
 	rephrase,
-	initialRephrasing
+	clean,
+	initialRephrasing,
+	SliceCallback,
+	eachSlice
 }
