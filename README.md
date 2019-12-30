@@ -295,11 +295,54 @@ original lint config and run autocorrect.
 
 TLDR: Stop writing semicolons. That's what compilers are for.
 
+## A note on imports and exports
+
+TypeScript (and sorta JavaScript) is strict about what names can be imported from a module.
+Here's a concrete example:
+
+```typescript
+// File: ./foo.ts
+
+const foo = (times = 1) => {
+	return repeat(times, 'foo')
+}
+
+const repeat = (times: number, toRepeat: string) => {
+	return (new Array(times)).fill(toRepeat).join('-')
+}
+
+export {
+	foo
+}
+
+// File: ./foo.test.ts
+
+import { repeat } from './foo.ts'
+
+test('repeat', () => {
+	expect(repeat(2, 'horse')).toEqual('horse-horse')
+})
+```
+
+This code won't compile. Do you see why?
+
+The problem is that `foo.ts` doesn't export `repeat`, only `foo`. This means that we
+can't test `repeat`, except indirectly through `foo`.
+
+This raises some philosophical questions of whether we should test "private" methods
+like this at all. But I think we know what Sean Connery would say about that. Instead,
+let's go with a simple plan:
+
+**If you're a sourcerer, export all your constants and types.**
+Do it even if nothing is importing them yet.
+
+**If you're an examiner, you may modify source code to add exports you want to test.**
+This is the only case where you can modify source code.
+
 ## More documentation plz
 
-- TypeScript: https://www.typescriptlang.org/docs/home.html
-- JavaScript: MDN all the way! https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide
-- Node 12: https://nodejs.org/dist/latest-v12.x/docs/api/
-- Jest: https://jestjs.io/docs/en/using-matchers
-- ESLint: https://eslint.org/docs/user-guide/configuring
-
+- TypeScript: <https://www.typescriptlang.org/docs/home.html>
+- JavaScript: MDN all the way! <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide>
+- Node 12: <https://nodejs.org/dist/latest-v12.x/docs/api/>
+- Jest: <https://jestjs.io/docs/en/using-matchers>
+- ESLint: <https://eslint.org/docs/user-guide/configuring>
